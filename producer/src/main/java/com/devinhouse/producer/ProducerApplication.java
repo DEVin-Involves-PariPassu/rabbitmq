@@ -34,16 +34,23 @@ public class ProducerApplication implements CommandLineRunner {
 //			rabbitTemplate.convertAndSend("teste", "Hello " + i);
 //		}
 
-		rabbitTemplate.convertAndSend("usuarios", null, "Novo endereço: São Paulo");
 
-		Scanner scanner = new Scanner(System.in);
+		// Exemplo de envio para fila do tipo fanout
+//		rabbitTemplate.convertAndSend("usuarios", null, "Novo endereço: São Paulo");
+//
+//		Scanner scanner = new Scanner(System.in);
+//
+//		while(true) {
+//			System.out.println("Digite a proxima mensagem");
+//			String mensagem = scanner.nextLine();
+//			rabbitTemplate.convertAndSend("usuarios", null, mensagem);
+//			System.out.println("Mensagem enviada");
+//		}
 
-		while(true) {
-			System.out.println("Digite a proxima mensagem");
-			String mensagem = scanner.nextLine();
-			rabbitTemplate.convertAndSend("usuarios", null, mensagem);
-			System.out.println("Mensagem enviada");
-		}
+
+		rabbitTemplate.convertAndSend("cores", "orange", "5-laranja");
+		rabbitTemplate.convertAndSend("cores", "black", "2-preta");
+		rabbitTemplate.convertAndSend("cores", "green", "3-verde");
 	}
 
 	//@Scheduled(fixedDelay = 1000, initialDelay = 500)

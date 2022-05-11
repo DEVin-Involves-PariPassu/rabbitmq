@@ -23,14 +23,26 @@ public class TestConsumer {
         }
     }
 
+    // Exemplo para tipo fanout
     @RabbitListener(queues = "entrega")
     public void atualizarRotas(String msg) {
         System.out.println("Serviço de entrega: " + msg);
     }
 
+    // Exemplo para tipo fanout
     @RabbitListener(queues = "preferencias")
     public void atualizarPreferencias(String msg) {
         System.out.println("Serviço de preferências: " + msg);
     }
 
+
+    @RabbitListener(queues = "QueueCor1")
+    public void produzirTintaLaranja(String msg) {
+        System.out.println("Maquina 1: Produzindo + " + msg + " latas de tinta na cor laranja");
+    }
+
+    @RabbitListener(queues = "QueueCor2")
+    public void produzirTintaPretaAndVerde(String msg) {
+        System.out.println("Maquina 2: Produzindo + " + msg + " latas de tinta");
+    }
 }
