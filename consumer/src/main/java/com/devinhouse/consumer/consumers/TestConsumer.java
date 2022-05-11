@@ -7,9 +7,17 @@ import org.springframework.stereotype.Component;
 public class TestConsumer {
 
     @RabbitListener(queues = "teste")
-    public void receiveMessage(String msg) {
+    public void receiveMessage(String msg) throws InterruptedException {
+        System.out.println("[x] Received '" + msg + "'");
+        doWork(msg);
+    }
 
-        System.out.println("message: " + msg);
+    private void doWork(String msg) throws InterruptedException {
+        for (char ch: msg.toCharArray()) {
+            if(ch == '.') {
+                Thread.sleep(1000);
+            }
+        }
     }
 
 
