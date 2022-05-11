@@ -8,10 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class ProducerApplication implements CommandLineRunner {
 
 	@Autowired
@@ -28,12 +29,24 @@ public class ProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		for(int i = 0; i < 20; i++) {
-			rabbitTemplate.convertAndSend("teste", "Hello " + i);
+		// Exemplo de envio para fila default
+//		for(int i = 0; i < 20; i++) {
+//			rabbitTemplate.convertAndSend("teste", "Hello " + i);
+//		}
+
+		rabbitTemplate.convertAndSend("usuarios", null, "Novo endereço: São Paulo");
+
+		Scanner scanner = new Scanner(System.in);
+
+		while(true) {
+			System.out.println("Digite a proxima mensagem");
+			String mensagem = scanner.nextLine();
+			rabbitTemplate.convertAndSend("usuarios", null, mensagem);
+			System.out.println("Mensagem enviada");
 		}
 	}
 
-	@Scheduled(fixedDelay = 1000, initialDelay = 500)
+	//@Scheduled(fixedDelay = 1000, initialDelay = 500)
 	public void send() {
 		StringBuilder builder = new StringBuilder();
 		if(dots.getAndIncrement() == 4) {
